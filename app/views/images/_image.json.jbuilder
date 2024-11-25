@@ -1,2 +1,2 @@
 json.url image.url
-json.product json.product
+json.product_id image.product_id

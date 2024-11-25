@@ -1,0 +1,14 @@
+<h1>Current Product:</h1>
+<p>
+  <%= @product.name %>
+</p>
+<h2>Attributes:</h2>
+<ul>
+  <li>Price: <%= @product.price %>
+  </li>
+  <li>Description: <%= @product.description %>
+      <% @product.images.each do |image| %>
+  <li><img src=" <%= image.url %>" alt="">
+  </li>
+  <% end %>
+</ul>
