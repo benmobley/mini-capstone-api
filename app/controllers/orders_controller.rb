@@ -1,7 +1,11 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user
+
   def create
-    subtotal = Product.find_by(id: params[:product_id]).price
-    tax = subtotal * 0.08
+    product = Product.find_by(id: params[:product_id])
+
+    subtotal = product.price * params[:quantity].to_i
+    tax = product.tax * params[:quantity].to_i
     total = subtotal + tax
 
     @order = Order.create(
@@ -17,23 +21,15 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find_by(id: params[:id])
-    if current_user
-      if current_user.id == @order.user_id
-        render :show
-      else
-        render json: { message: "Order does not exist for current user" }
-      end
+    if current_user.id == @order.user_id
+      render :show
     else
-      render json: { message: "Must be logged in" }
+      render json: { message: "Order does not exist for current user" }
     end
   end
 
   def index
-    if current_user
-      @orders = Order.where(user_id: current_user.id)
-      render :index
-    else
-      render json: { message: "Must be logged in" }
-    end
+    @orders = current_user.orders
+    render :index
   end
 end

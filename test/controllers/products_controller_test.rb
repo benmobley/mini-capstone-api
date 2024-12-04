@@ -1,6 +1,11 @@
 require "test_helper"
 
 class ProductsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    User.create(name: "Admin", email: "admin@example.com", password: "password", admin: true)
+    post "/sessions.json", params: { email: "admin@example.com", password: "password" }
+  end
+
   test "index" do
     get "/products.json"
     assert_response 200
