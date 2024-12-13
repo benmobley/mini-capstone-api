@@ -1,3 +1,6 @@
+User.create(name: "Ben", email: "ben@example.com", password: "password", admin: true)
+User.create(name: "Test", email: "test@example.com", password: "password", admin: false)
+
 Supplier.create(name: "Apple", email: "apple@apple.com", phone_number: "12345678")
 Supplier.create(name: "Amazon", email: "amazon@amazon.com", phone_number: "87654321")
 
@@ -43,7 +46,6 @@ products_data.each do |product|
   product = Product.create(
     name: product[:name],
     price: product[:price],
-    image_url: product[:image_url],
     quantity: 1,
     description: product[:description],
     supplier_id: 1,
